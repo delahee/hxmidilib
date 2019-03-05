@@ -128,7 +128,11 @@ class MIDIDecoder {
 		// for midi running status: see http://everything2.com/user/arfarf/writeups/MIDI+running+status
 		if (inFile && !MessageStatus.isStatus(status)) {
 			// back up the data stream
+			#if flash
 			data.position--;
+			#else 
+			data.position = data.position -1;
+			#end
 			byte = previousStatusByte;
 			status = byte & 0xF0;
 		}
